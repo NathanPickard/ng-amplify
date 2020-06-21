@@ -10,6 +10,14 @@
             "StackName": "amplify-ngampligy-dev-212149",
             "StackId": "arn:aws:cloudformation:us-west-2:854875202353:stack/amplify-ngampligy-dev-212149/3b9c16e0-b11b-11ea-9dc0-068a25e2e0ea",
             "AmplifyAppId": "d1kzqn394dxxr2"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d1kzqn394dxxr2",
+                    "type": "manual"
+                }
+            }
         }
     }
 }
