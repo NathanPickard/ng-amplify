@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormFieldTypes } from '@aws-amplify/ui-components';
+
 import { APIService } from './API.service';
 
 @Component({
@@ -10,7 +12,30 @@ export class AppComponent implements OnInit {
 
   todos: Array<any>;
 
-  constructor(private apiService: APIService) { }
+  formFields: FormFieldTypes;
+
+  constructor(private apiService: APIService) {
+    this.formFields = [
+      {
+        type: 'email',
+        label: 'Custom email label',
+        placeholder: 'Custom email placeholder',
+        required: true
+      },
+      {
+        type: 'password',
+        label: 'Custom password label',
+        placeholder: 'Custom password placeholder',
+        required: true
+      },
+      {
+        type: 'phone_number',
+        label: 'Custom phone label',
+        placeholder: 'Custom phone placeholder',
+        required: false
+      }
+    ];
+  }
 
   async ngOnInit() {
     this.apiService.ListTodos().then((evt) => {
