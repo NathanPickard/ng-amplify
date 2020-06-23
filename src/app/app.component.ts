@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormFieldTypes } from '@aws-amplify/ui-components';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { onAuthUIStateChange, CognitoUserInterface, AuthState, FormFieldTypes } from '@aws-amplify/ui-components';
 
 import { APIService } from './API.service';
 
@@ -11,10 +11,12 @@ import { APIService } from './API.service';
 export class AppComponent implements OnInit {
 
   todos: Array<any>;
+  user: CognitoUserInterface | undefined;
+  authState: AuthState;
 
   formFields: FormFieldTypes;
 
-  constructor(private apiService: APIService) {
+  constructor(private apiService: APIService, private ref: ChangeDetectorRef) {
     this.formFields = [
       {
         type: 'email',
@@ -38,6 +40,13 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
+
+    onAuthUIStateChange((authState, authData) => {
+      this.authState = authState;
+      this.user = authData as CognitoUserInterface;
+      this.ref.detectChanges();
+    });
+
     this.apiService.ListTodos().then((evt) => {
       this.todos = evt.items;
     });
@@ -54,4 +63,9 @@ export class AppComponent implements OnInit {
       description: 'testing'
     });
   }
+
+  ngOnDestroy() {
+    return onAuthUIStateChange;
+  }
+
 }

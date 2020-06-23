@@ -1,4 +1,4 @@
-<amplify-authenticator>
+<amplify-authenticator *ngIf="authState !== 'signedin'">
   <!-- <amplify-authenticator usernameAlias="email"> -->
   <!-- <amplify-sign-up slot="sign-up" usernameAlias="email" [formFields]="formFields"></amplify-sign-up> -->
   <div>
@@ -6,6 +6,13 @@
     <amplify-sign-out></amplify-sign-out>
   </div>
 </amplify-authenticator>
+
+<div *ngIf="authState === 'signedin' && user" class="App">
+  <amplify-sign-out></amplify-sign-out>
+  <div>Hello, {{user.username}}</div>
+  <!-- Application template code goes here -->
+
+</div>
 
 <button (click)="createTodo()">Add Todo</button>
 
